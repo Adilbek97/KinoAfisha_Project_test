@@ -16,10 +16,19 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
+    final int position=10;
     @Test
     public void RecyclerTest(){
-        Espresso.onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.<RecyclerView.ViewHolder>actionOnItemAtPosition(2,click()));
-    }
+        try {
+            Thread.sleep(5000);
+            Espresso.onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.<RecyclerView.ViewHolder>scrollToPosition(position));
+            Thread.sleep(2000);
+            Espresso.onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.<RecyclerView.ViewHolder>actionOnItemAtPosition(position,click()));
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+         }
 
 
 }
